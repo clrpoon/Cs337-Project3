@@ -1,0 +1,1 @@
+{"0": "affirm", "1": "bot_challenge", "10": "show_directions", "11": "show_ingredients", "12": "what_is", "2": "deny", "3": "find_new_recipe", "4": "goodbye", "5": "greet", "6": "how_to", "7": "navigate_directions", "8": "prompt_recipe_search", "9": "recipe_search_for"}
