@@ -29,3 +29,16 @@ class ActionSuggest(Action):
             text="is it ok for you? hint: I'm not going to find anything else :)"
         )
         return []
+
+class ActionShowRecipe(Action):
+    def name(self):
+        return "action_show_recipe"
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(text="here's what I found:")
+        dispatcher.utter_message(text=tracker.get_slot("matches"))
+        dispatcher.utter_message(
+            text="helloooooooo"
+        )
+        return []
+
