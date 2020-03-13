@@ -376,6 +376,35 @@ class Recipe(object):
             "binder": binders,
         }
 
+    def print_directions(self): 
+        print("Directions:")
+        direction_items = self.get_ingredients_tools_methods_times()
+        # print(direction_items, '-------------------------')
+        i = 1
+        for dir in self.directions:
+            print("Step", i, ":" , dir)
+            # print(i, '------------------')
+            # print(direction_items)
+            curr_direction_item = direction_items[i-1]
+
+            print("Ingredients:", curr_direction_item[0])
+            print("Tools:", curr_direction_item[1])
+            print("Methods:", curr_direction_item[2])
+            print("Additional methods:", curr_direction_item[3])
+            print("Times:", curr_direction_item[4])
+            i += 1
+            print('-----------------------------------')
+        print("\n")
+
+    def print_ingredients(self):
+        print("Ingredients:")
+        for ing in self.ingredients:
+            print(ing)
+    
+    def print_recipe_info(self):
+        print("Recipe Name:", self.recipe_name[0])
+        print("Recipe URL:", self.url, "\n")
+
     def print_recipe(self):
         do = '69'
         print("Recipe Name:", self.recipe_name[0])
