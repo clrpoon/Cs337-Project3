@@ -6,7 +6,6 @@ import re
 class RecipeFetcher:
 
    def __init__(self):
-      # nothing needed yet?
       pass
 
    def search_recipes(self, keywords): 
