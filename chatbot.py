@@ -22,20 +22,22 @@ def chatbot():
     # initialize recipe fetcher object, can be used to scrap any food
 
     # GREETING 
+    print('-------------------------------')
     print('Hello, welcome to BBB. Please start typing to interact with our AllRecipes.com chatbot.')
 
     while True: 
         # take in user input 
-        print('\n')
+        # print('\n')
         user_input = input('Type here... \n')
-
+        print('-------------------------------')
         # use rasa to determine intent, and then process the json response 
         res = rasa_output(user_input)
+        print('BBB: -------------------------------')
         # print(res)
         intent, confidence = process_intent(res)
-    
         # act on whatever intent is determined by rasa
         act_on_intent(intent, confidence, user_input) 
+        print('-------------------------------')
 
 def process_intent(intent_json): 
     try:
