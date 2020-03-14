@@ -3,6 +3,8 @@ from recipe import *
 from nltk.corpus import wordnet as wn
 import random 
 from rasa_interface import rasa_output
+from youtube_search import YoutubeSearch
+from googlesearch import search 
 
 # stores current recipe that the user is interacting with, current_recipe is None if no current recipe found 
 global current_recipe 
@@ -92,7 +94,8 @@ def act_on_intent(intent, confidence, user_input):
     
     elif intent == 'thanks':
         # ask if should go on to next step 
-        utter_thanks()
+        # utter_thanks()
+        do = 'something'
     
     elif intent == 'find_new_recipe': 
         # reset recipe to -1 
@@ -141,11 +144,18 @@ def prompt_recipe_search_for(user_input):
         # print('Invalid search query, please try your search again.')
 
 def how_to(user_input):
-    print('We found this video showing you', user_input,'\n')
+    print('We found this video showing you:', user_input,'\n')
+    link = YoutubeSearch(user_input, max_results=1).to_json()['link']
+    print(link)
     # RETURN YOUTUBE LINK RESULT HERE ---------------------------
 
 def look_up(user_input):
     print('We found this meaning for what you were wondering about:\n')
+    for link in search(user_input, tld="co.in", num=1, stop=1, pause=2):
+        print(link)
+        # return link
+
+        
     # RETURN DICTIONARY LOOKUP RESULT HERE ---------------------------
 
 def show_directions(): 
