@@ -5,6 +5,7 @@ import random
 from rasa_interface import rasa_output
 from youtube_search import YoutubeSearch
 from googlesearch import search 
+import json
 
 # stores current recipe that the user is interacting with, current_recipe is None if no current recipe found 
 # global current_recipe 
@@ -73,9 +74,9 @@ def act_on_intent(intent, confidence, user_input):
         # look up how to on youtube or somwhere
         how_to(user_input)
 
-    elif intent == 'look_up': 
+    elif intent == 'what_is': 
         # look up definition
-        look_up(user_input)
+        what_is(user_input)
 
     elif intent == 'show_directions': 
         # show all directions
@@ -149,11 +150,13 @@ def prompt_recipe_search_for(user_input):
 
 def how_to(user_input):
     print('We found this video showing you:', user_input,'\n')
-    link = YoutubeSearch(user_input, max_results=1).to_json()['link']
+    video_info = json.loads(YoutubeSearch(user_input, max_results=1).to_json())
+    video_info = video_info["videos"][0]
+    link = "youtube.com" + video_info["link"]
     print(link)
     # RETURN YOUTUBE LINK RESULT HERE ---------------------------
 
-def look_up(user_input):
+def what_is(user_input):
     print('We found this meaning for what you were wondering about:\n')
     for link in search(user_input, tld="co.in", num=1, stop=1, pause=2):
         print(link)
@@ -184,7 +187,7 @@ def show_directions():
 def show_ingredients(): 
     global step_index
     global current_recipe
-    
+
     if current_recipe == -1: 
         prompt_food = -1 
         print(prompt_food)
@@ -201,14 +204,36 @@ def show_ingredients():
         current_recipe.print_ingredients() 
 
 def navigate_directions(user_input): 
-    # BASED ON THE CURRENT STEP, FIGURE OUT AND NAVIGATE TO THAT STEP 
-    pass 
+    global step_index
+    global current_recipe
+
+    if current_recipe == -1: 
+        prompt_food = -1 
+        while prompt_food not in ["0", "1"]: 
+            prompt_food = input('You are not currently looking at a recipe, would you like to search for one? [0] for NO, [1] for YES.')
+            if(prompt_food == "0"):
+                print("Ok, sounds good!")
+            elif(prompt_food == "1"):
+                prompt_recipe_search()
+            else:
+                print("Sorry, invalid input. Please try again.")
+    else: 
+        if 'next' in user_input:
+            step_index += 1 
+        elif 'back' in user_input:
+            step_index -= 1 
+        elif len([int(s) for s in user_input.split() if s.isdigit()]) > 0:
+            step_index = [int(s) for s in user_input.split() if s.isdigit()][0]
+
+        current_recipe.print_step(step_index)
 
 def find_new_recipe(): 
-    print("Ok, we'll find you a different recipe")
-    print("Please specify a URL from allrecipes or a type of food (e.g: steak, chicken lasagna, etc)")
-    current_recipe = -1
-    step_index = 1 
+    global current_recipe
+    global step_index
+    user_input = input("Ok, we'll find you a different recipe. Please specify a URL from allrecipes or a type of food (e.g: steak, chicken lasagna, etc) \n")
+    prompt_recipe_search_for(user_input)
+    # current_recipe = -1
+    # step_index = 1 
 
 if __name__ == "__main__":
     chatbot()

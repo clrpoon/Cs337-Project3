@@ -400,6 +400,20 @@ class Recipe(object):
         print("Ingredients:")
         for ing in self.ingredients:
             print(ing)
+
+    def print_step(self, step_num):
+        direction_items = self.get_ingredients_tools_methods_times()
+        if step_num <= len(self.directions) and step_num - 1 >= 0: 
+            print("Step", step_num, ":" , dir)
+            curr_direction_item = direction_items[step_num-1]
+            print("Ingredients:", curr_direction_item[0])
+            print("Tools:", curr_direction_item[1])
+            print("Methods:", curr_direction_item[2])
+            print("Additional methods:", curr_direction_item[3])
+            print("Times:", curr_direction_item[4])
+        else: 
+            print("There is no such step number, try searching for another step.")
+
     
     def print_recipe_info(self):
         print("Recipe Name:", self.recipe_name[0])
