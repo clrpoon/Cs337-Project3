@@ -3,14 +3,14 @@
 - hello
 - hi
 - good morning
-- good afternoon 
+- good afternoon
 - good evening
 - hey there
 
 ## intent:goodbye
 - bye
 - goodbye
-- peace 
+- peace
 - deuces
 - see you around
 - see you later
@@ -22,6 +22,7 @@
 - that sounds good
 - correct
 - daddy
+- right
 
 ## intent:deny
 - no
@@ -30,7 +31,7 @@
 - don't like that
 - no way
 - not really
-- fuck off
+- nope
 
 ## intent:prompt_recipe_search
 - i'm hungry
@@ -38,13 +39,16 @@
 - i want to eat
 - what's for dinner
 - what's for lunch
-- i want food 
+- i want food
 - walk me through a recipe
-- Walk me through a recipe from AllRecipes.com
-- Show me a recipe
-- I am looking for a recipe
-- show me food 
-- let's cook 
+- walk me through a recipe from AllRecipes.com
+- show me a recipe
+- i am looking for a recipe
+- show me food
+- let's cook
+- i need a recipe
+- give me a recipe
+- show me how to cook [lasagna](food)
 
 ## intent:recipe_search_for
 - walk me through a recipe for [lasagna](food)
@@ -55,7 +59,15 @@
 - I am looking for a recipe for [ramen](food)
 - help me make [soup](food)
 - I would like to find a recipe for [tacos](food)
-- find my a recipe for [chicken](food)
+- find me a recipe for [chicken](food)
+- [chicken](food) recipes
+- give me a recipe for [chicken](food)
+- i need a recipe for [chicken](food)
+- what are recipes some for [chicken](food)
+- i want to cook [rice](food)
+- get me a recipe for [soup](food)
+- show me a recipe for [pork](food)
+- [pork](food) recipe
 
 ## intent:how_to
 - how do I [boil water](action)?
@@ -86,12 +98,20 @@
 - what are the directions
 - directions
 - directions please
+- i need a list of directions
+
 
 ## intent:show_ingredients
 - show me the ingredients
 - what are the ingredients
 - ingredients
-- ingredients please 
+- ingredients please
+- what is the list of ingredients
+- give me a list of the ingredients
+- what are the ingredients for this recipe
+- give me the ingredient list
+- show the ingredient list
+
 
 ## intent:navigate_directions
 - what do i do [next](order)
@@ -126,21 +146,28 @@
 - go to the [fourth](order) step
 - go to the [fifth](order) step
 - go to the [sixth](order) step
-- [first](order) step 
-- [second](order) step 
-- [third](order) step 
-- [fourth](order) step 
-- [fifth](order) step 
-- [sixth](order) step 
+- [first](order) step
+- [second](order) step
+- [third](order) step
+- [fourth](order) step
+- [fifth](order) step
+- [sixth](order) step
 
 ## intent:find_new_recipe
-- fuck this recipe
+- i don't like this recipe
 - show me a new recipe
 - new recipe
-- i don't like this 
-- new recipe please 
-- i want something else 
-- i want a new recipe 
+- i don't like this
+- new recipe please
+- i want something else
+- i want a new recipe
+- give me a different recipe
+- i need a new recipe
+- this recipe sucks
+- this is not what i asked fork
+- show me something new
+- give me something different
+
 
 ## intent:bot_challenge
 - are you a bot?
@@ -149,10 +176,11 @@
 - am I talking to a human?
 
 ## intent:thanks
-- thanks 
-- thanks! 
-- cool 
-- sounds good 
-- nice 
+- thanks
+- thanks!
+- cool
+- sounds good
+- nice
 - bet
 - ayyy
+- thank you

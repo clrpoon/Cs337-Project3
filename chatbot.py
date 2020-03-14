@@ -30,6 +30,9 @@ def chatbot():
         # print('\n')
         user_input = input('Type here... \n')
         print('-------------------------------')
+        # exit condition
+        if user_input == '//exit':
+            break
         # use rasa to determine intent, and then process the json response 
         res = rasa_output(user_input)
         print('BBB: -------------------------------')
@@ -140,18 +143,18 @@ def prompt_recipe_search_for(user_input):
         recipe_json = rf.find_recipe(user_input)
         # print(recipe_json, '---------------------------')
 
-    # try: 
-    recipe = Recipe(recipe_json)
+    try: 
+        recipe = Recipe(recipe_json)
     # set current recipe 
-    current_recipe = recipe
-    print("We found this recipe for you: \n")
-    recipe.print_recipe_info() 
-    # except:
+        current_recipe = recipe
+        print("We found this recipe for you: \n")
+        recipe.print_recipe_info() 
+    except:
     #     # if invalid search query
-    #     print('Invalid search query, please try your search again.')
+        print('Query failed, please try your search again.')
 
 def how_to(user_input):
-    print('We found this video showing you:', user_input,'\n')
+    print('We found this video that shows you:', user_input,'\n')
     video_info = json.loads(YoutubeSearch(user_input, max_results=1).to_json())
     video_info = video_info["videos"][0]
     link = "youtube.com" + video_info["link"]
