@@ -14,9 +14,6 @@ current_recipe = None
 step_index = 1 
 rf = RecipeFetcher()
 
-if __name__ == "__main__":
-    chatbot()
-
 # Start the chatbot 
 def chatbot(): 
     # initialize recipe fetcher object, can be used to scrap any food
@@ -26,10 +23,12 @@ def chatbot():
 
     while True: 
         # take in user input 
-        user_input = input('Type here \n')
+        print('\n')
+        user_input = input('Type here... \n')
 
         # use rasa to determine intent, and then process the json response 
         res = rasa_output(user_input)
+        # print(res)
         intent, confidence = process_intent(res)
     
         # act on whatever intent is determined by rasa
@@ -37,19 +36,25 @@ def chatbot():
 
 def process_intent(intent_json): 
     try:
+        # print(intent_json)
         intent = intent_json['intent']['name']
         confidence = intent_json['intent']['confidence']
     except:
+        # print('failed')
         intent = ''
         confidence = -1 
     return intent, confidence 
 
 def act_on_intent(intent, confidence, user_input):
+    # print('----------------------')
+    # print(intent)
+    # print(confidence)
+    # print('----------------------')
     if confidence < 0.05:
         # if confidence below threshold, do not use that intent 
         print("Sorry, we're not completely sure what you mean. Please try again") 
 
-    elif intent == 'greeting':
+    elif intent == 'greet':
         utter_greeting()
 
     elif intent == 'goodbye':
@@ -181,3 +186,6 @@ def find_new_recipe():
     print("Please specify a URL from allrecipes or a type of food (e.g: steak, chicken lasagna, etc)")
     current_recipe = None
     step_index = 1 
+
+if __name__ == "__main__":
+    chatbot()
