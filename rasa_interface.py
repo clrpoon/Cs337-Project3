@@ -4,7 +4,7 @@ from rasa.nlu.utils import json_to_string
 
 
 # path of your model
-rasa_model_path = "bbb/models/model1/nlu"
+rasa_model_path = "bbb/models/model2/nlu"
 
 # create an interpreter object
 interpreter = Interpreter.load(rasa_model_path)

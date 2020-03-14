@@ -114,7 +114,8 @@ def utter_goodbye():
     print(random.choice(goodbyes))
 
 def prompt_recipe_search():
-    print("Sure thing! Please specify a URL from allrecipes or a type of food (e.g: steak, chicken lasagna, etc)")
+    user_input = input("Sure thing! Please specify a URL from allrecipes.com or a type of food (e.g: steak, chicken lasagna, etc) \n")
+    prompt_recipe_search_for(user_input)
 
 # user input must be food or URL ---------------------------------------------------EITHER MODIFY THIS TO PARSE THE FOOD NAME OUT OF THE STRING OR MODIFY THE INTENTS
 def prompt_recipe_search_for(user_input): 
@@ -127,16 +128,17 @@ def prompt_recipe_search_for(user_input):
     else: 
         # search for the food item
         recipe_json = rf.find_recipe(user_input)
+        print(recipe_json, '---------------------------')
 
-    try: 
-        recipe = Recipe(recipe_json)
-        # set current recipe 
-        current_recipe = recipe
-        print("Here is your recipe: \n")
-        recipe.print_recipe() 
-    except:
+    # try: 
+    recipe = Recipe(recipe_json)
+    # set current recipe 
+    current_recipe = recipe
+    print("Here is your recipe: \n")
+    recipe.print_recipe() 
+    # except:
         # if invalid search query 
-        print('Invalid search query, please try your search again.')
+        # print('Invalid search query, please try your search again.')
 
 def how_to(user_input):
     print('We found this video showing you', user_input,'\n')
@@ -152,9 +154,9 @@ def show_directions():
         prompt_food = -1 
         while prompt_food not in [0, 1]: 
             prompt_food = input('You are not currently looking at a recipe, would you like to search for one? [0] for NO, [1] for YES.')
-            if(prompt_food == 0):
+            if(prompt_food == "0"):
                 print("Ok, sounds good!")
-            elif(prompt_food == 1):
+            elif(prompt_food == "1"):
                 prompt_recipe_search()
             else:
                 print("Sorry, invalid input. Please try again.")
