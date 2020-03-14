@@ -158,11 +158,14 @@ def how_to(user_input):
 
 def what_is(user_input):
     print('We found this meaning for what you were wondering about:\n')
-    for link in search(user_input, tld="co.in", num=1, stop=1, pause=2):
-        print(link)
-        # return link
-
-        
+    found = False 
+    for link in search(user_input, tld="co.in", num=15, stop=15, pause=2):
+        if('dictionary' in link or 'merriam-webster' in link):
+            print(link)
+            found = True 
+            break 
+    if not found: 
+        print("Could not find a good meaning for this phrase.")
     # RETURN DICTIONARY LOOKUP RESULT HERE ---------------------------
 
 def show_directions(): 
