@@ -394,7 +394,7 @@ class Recipe(object):
             print("Times:", curr_direction_item[4])
             i += 1
             print('-----------------------------------')
-        print("\n")
+        # print("\n")
 
     def print_ingredients(self):
         print("Ingredients:")
@@ -403,7 +403,7 @@ class Recipe(object):
     
     def print_recipe_info(self):
         print("Recipe Name:", self.recipe_name[0])
-        print("Recipe URL:", self.url, "\n")
+        print("Recipe URL:", self.url)
 
     def print_recipe(self):
         do = '69'

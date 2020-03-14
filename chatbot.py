@@ -7,12 +7,12 @@ from youtube_search import YoutubeSearch
 from googlesearch import search 
 
 # stores current recipe that the user is interacting with, current_recipe is None if no current recipe found 
-global current_recipe 
+# global current_recipe 
 # step index represents the step that the user is currently on, starts at step 1
-global step_index
-global rf 
+# global step_index
+# global rf 
 
-current_recipe = None  
+current_recipe = -1  
 step_index = 1 
 rf = RecipeFetcher()
 
@@ -54,7 +54,7 @@ def act_on_intent(intent, confidence, user_input):
     # print('----------------------')
     if confidence < 0.05:
         # if confidence below threshold, do not use that intent 
-        print("Sorry, we're not completely sure what you mean. Please try again") 
+        print("Sorry, we're not completely sure what you mean. Please try again.") 
 
     elif intent == 'greet':
         utter_greeting()
@@ -85,7 +85,7 @@ def act_on_intent(intent, confidence, user_input):
     elif intent == 'show_ingredients': 
         # show ingredients 
         # if recipe is None, prompt user to search for a food 
-        show_ingredients
+        show_ingredients()
 
     elif intent == 'navigate_directions':
         # show navigation 
@@ -111,8 +111,10 @@ def utter_greeting():
     print(random.choice(greetings))
 
 def utter_goodbye():
+    global step_index
+    global current_recipe
     goodbyes = ['Thanks and come again!', 'Goodbye!', "See ya later", "Bye!", "Have a nice day!"]
-    current_recipe = None 
+    current_recipe = -1 
     step_index = 1
     print(random.choice(goodbyes))
 
@@ -122,6 +124,8 @@ def prompt_recipe_search():
 
 # user input must be food or URL ---------------------------------------------------EITHER MODIFY THIS TO PARSE THE FOOD NAME OUT OF THE STRING OR MODIFY THE INTENTS
 def prompt_recipe_search_for(user_input): 
+    global step_index
+    global current_recipe
     # only accepts food or URL 
     if 'allrecipes.com' in user_input.lower(): 
         for word in user_input.lower().split():
@@ -131,17 +135,17 @@ def prompt_recipe_search_for(user_input):
     else: 
         # search for the food item
         recipe_json = rf.find_recipe(user_input)
-        print(recipe_json, '---------------------------')
+        # print(recipe_json, '---------------------------')
 
     # try: 
     recipe = Recipe(recipe_json)
     # set current recipe 
     current_recipe = recipe
-    print("Here is your recipe: \n")
-    recipe.print_recipe() 
+    print("We found this recipe for you: \n")
+    recipe.print_recipe_info() 
     # except:
-        # if invalid search query 
-        # print('Invalid search query, please try your search again.')
+    #     # if invalid search query
+    #     print('Invalid search query, please try your search again.')
 
 def how_to(user_input):
     print('We found this video showing you:', user_input,'\n')
@@ -159,10 +163,13 @@ def look_up(user_input):
     # RETURN DICTIONARY LOOKUP RESULT HERE ---------------------------
 
 def show_directions(): 
-    # make sure this if condition works, I don't use "is None" very often  
-    if current_recipe is None: 
+    global step_index
+    global current_recipe
+    # make sure this if condition works, I don't use "is None" very often
+    print(current_recipe)  
+    if current_recipe == -1: 
         prompt_food = -1 
-        while prompt_food not in [0, 1]: 
+        while prompt_food not in ["0", "1"]: 
             prompt_food = input('You are not currently looking at a recipe, would you like to search for one? [0] for NO, [1] for YES.')
             if(prompt_food == "0"):
                 print("Ok, sounds good!")
@@ -175,13 +182,17 @@ def show_directions():
         current_recipe.print_directions() 
 
 def show_ingredients(): 
-    if current_recipe is None: 
+    global step_index
+    global current_recipe
+    
+    if current_recipe == -1: 
         prompt_food = -1 
-        while prompt_food not in [0, 1]: 
+        print(prompt_food)
+        while prompt_food not in ["0", "1"]: 
             prompt_food = input('You are not currently looking at a recipe, would you like to search for one? [0] for NO, [1] for YES.')
-            if(prompt_food == 0):
+            if(prompt_food == "0"):
                 print("Ok, sounds good!")
-            elif(prompt_food == 1):
+            elif(prompt_food == "1"):
                 prompt_recipe_search()
             else:
                 print("Sorry, invalid input. Please try again.")
@@ -196,7 +207,7 @@ def navigate_directions(user_input):
 def find_new_recipe(): 
     print("Ok, we'll find you a different recipe")
     print("Please specify a URL from allrecipes or a type of food (e.g: steak, chicken lasagna, etc)")
-    current_recipe = None
+    current_recipe = -1
     step_index = 1 
 
 if __name__ == "__main__":
