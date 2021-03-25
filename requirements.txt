@@ -139,7 +139,7 @@ python-socketio==4.4.0
 python-telegram-bot==11.1.0
 pytz==2019.3
 pywinpty==0.5.5
-PyYAML==5.3
+PyYAML==5.4
 pyzmq==18.0.0
 qtconsole==4.4.3
 questionary==1.5.1
